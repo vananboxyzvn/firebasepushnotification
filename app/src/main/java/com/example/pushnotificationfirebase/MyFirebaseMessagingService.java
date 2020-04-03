@@ -18,7 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
 
-import static com.example.pushnotificationfirebase.MainActivity.getContext;
+import static com.example.pushnotificationfirebase.ApplicationFirebase.getContext;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
