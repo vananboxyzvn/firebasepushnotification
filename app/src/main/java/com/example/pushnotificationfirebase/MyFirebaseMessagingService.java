@@ -19,6 +19,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Random;
 
 import static com.example.pushnotificationfirebase.ApplicationFirebase.getContext;
+import static com.example.pushnotificationfirebase.ApplicationFirebase.getIconPush;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -35,7 +36,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             title = notification.getTitle();
             body = notification.getBody();
-            sendNotification(getContext());
+            sendNotification(getContext(), getIconPush());
         }
 
     }
@@ -51,7 +52,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // TODO: Implement this method to send token to your app server.
     }
 
-    public void sendNotification(@NonNull Context context) {
+    public void sendNotification(@NonNull Context context, int icon) {
         Intent intent = new Intent(this, context.getClass());
         intent.putExtra("check_notifi", true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -61,7 +62,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setSmallIcon(icon)
                         .setContentTitle(title)
                         .setContentText(body)
                         .setAutoCancel(true)
@@ -71,7 +72,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId,
                     "Channel human readable title",
