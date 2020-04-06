@@ -10,8 +10,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import static com.example.pushnotificationfirebase.MyFirebaseInstanceIDService.resetInstanceId;
+
 public final class ApplicationFirebase {
     public static Context contextSdk;
+    public static int iconPush = R.drawable.ic_launcher_foreground;
+
+    public static void setContext(Context context, int icon) {
+        contextSdk = context;
+        iconPush = icon;
+        getToken();
+    }
 
     public static void setContext(Context context) {
         contextSdk = context;
@@ -34,7 +43,15 @@ public final class ApplicationFirebase {
                 });
     }
 
+    public static void resetToken() {
+        resetInstanceId();
+    }
+
     public static Context getContext() {
         return contextSdk;
+    }
+
+    public static int getIconPush() {
+        return iconPush;
     }
 }
