@@ -9,27 +9,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public final class ApplicationFirebase {
     public static Context contextSdk;
 
     public static void setContext(Context context) {
         contextSdk = context;
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            return;
-                        }
-
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-                        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-                        Log.d("TESTTEST2", token);
-                    }
-                });
+        getToken();
     }
 
     public static void getToken() {
@@ -43,7 +29,7 @@ public final class ApplicationFirebase {
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-                        Log.d("TESTTEST2", token);
+                        Log.d("TOKEN CURRENT", token);
                     }
                 });
     }

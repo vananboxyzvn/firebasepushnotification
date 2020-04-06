@@ -44,7 +44,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String token) {
         sendRegistrationToServer(token);
         fcm_token = token;
-        Log.d("TESTTEST2", token);
+        Log.d("NEW TOKEN", token);
     }
 
     private void sendRegistrationToServer(String token) {
